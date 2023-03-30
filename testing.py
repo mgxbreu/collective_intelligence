@@ -1,5 +1,6 @@
 from graph import Graph
 import numpy as np
+from constants import MAX_NUMBER
 
 nodes = 4
 cities = Graph(nodes)
@@ -37,14 +38,17 @@ class GeneticAlgorithmTSP():
     def _fitness(self, path):
         total_distance = 0
         for node in range(len(path)-1):
-            total_distance += distance[path[node], path[node + 1]]
+            current_distance = distance[path[node], path[node + 1]]
+            if current_distance == np.inf:
+                return MAX_NUMBER
+            total_distance += current_distance
         #check why
-        total_distance += distance[path[-1], path[0]]
+        # total_distance += distance[path[-1], path[0]]
         return total_distance
 
     def _generate_fitness_dict(self):
         self.fitness_dict = {idx: self._fitness(parent) for idx, parent in enumerate(self.population)}
-
+        # print(self.fitness_dict)
     #error on key
     def _parent_selection(self):
         self._generate_fitness_dict()
@@ -115,7 +119,7 @@ class GeneticAlgorithmTSP():
         for child in children:
             if child in parents:
                 children.remove(child)
-        
+        print(self.fitness_dict)
         self._generate_fitness_dict()
         self._find_best_path()
         
