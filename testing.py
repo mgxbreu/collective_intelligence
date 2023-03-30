@@ -2,6 +2,7 @@ from graph import Graph
 import numpy as np
 from constants import MAX_NUMBER
 import math
+import random
 
 nodes = 4
 cities = Graph(nodes)
