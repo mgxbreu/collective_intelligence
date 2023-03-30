@@ -84,12 +84,32 @@ class GeneticAlgorithmTSP():
 
                 child_to_be_born2[idx] = gene_mapped
 
+        child_to_be_born1 = self._mutate(child_to_be_born1)
+        child_to_be_born2 = self._mutate(child_to_be_born2)
+
         return [child_to_be_born1, child_to_be_born2]
 
+    def _mutate(self, chromosome):
+        if random.random() < self.mutation_rate:
+            i = random.randint(0, len(chromosome)-1)
+            j = random.randint(0, len(chromosome)-1)
+            chromosome[i], chromosome[j] = chromosome[j], chromosome[i]
+        return chromosome
+
     def _find_best_path(self):
-        best_path_index =  min(self.fitness_list, key=self.fitness_list.get)
-        best_path_length = self.fitness_list[best_path_index]
-        best_path = self.population[best_path_index]
+        best_path =  min(self.population, key=self._fitness)
+        best_path_distance = self._fitness(best_path)
+
+        print(f"Current population: {self.population}")
+        print(f"Best path found: {best_path}, with a length of {best_path_distance}") 
+        
+    def _generate_next_generation(self, parents):
+        next_generation = parents[:]
+        while len(next_generation) < self.population_count:
+            parent1 = random.choice(parents)
+            parent2 = random.choice(parents)
+            children = self._crossover(parent1, parent2)
+            next_generation.extend(children)
 
         return next_generation
 
