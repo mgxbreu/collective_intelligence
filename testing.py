@@ -91,14 +91,16 @@ class GeneticAlgorithmTSP():
         best_path_length = self.fitness_list[best_path_index]
         best_path = self.population[best_path_index]
 
-        print("best path")
-        print(f"Best path found: {best_path}, with a length of {best_path_length}") 
-        
+        return next_generation
+
     def solve(self):
         self._initialize_population()
-        print(self.population)
-        parents = self._parent_selection()
-        print(parents)
+        for iteration in range(self.iterations):
+            parents = self._parent_selection()
+            next_generation = self._generate_next_generation(parents)
+            self.population = next_generation
+        self._find_best_path()
+        
         
 TSP = GeneticAlgorithmTSP()
 TSP.solve()
