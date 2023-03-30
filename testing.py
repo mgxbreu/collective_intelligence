@@ -52,15 +52,10 @@ class GeneticAlgorithmTSP():
         # print(self.fitness_dict)
     #error on key
     def _parent_selection(self):
-        self._generate_fitness_dict()
-        for eliminate in range(2):
-            if self.fitness_dict[eliminate] == np.inf:
-                self.fitness_dict.pop(eliminate)
-            else:
-                max_fitness = max(self.fitness_dict, key=self.fitness_dict.get)
-                self.fitness_dict.pop(max_fitness)
-
-        parents_selected = [self.population[parent] for parent in self.fitness_dict.keys()]
+        self._generate_fitness_list()
+        indices = np.argsort(self.fitness_list)
+        # check why
+        parents_selected = [self.population[i] for i in indices[:self.selection_count]]
         return parents_selected
 
     
