@@ -5,7 +5,7 @@ import random
 
 class GeneticAlgorithmTSP:
 
-    def __init__(self, population_size, distance_matrix, selection_rate=0.66, mutation_rate= 0.16, iterations= 4, population_count=6):
+    def __init__(self, population_size, distance_matrix, selection_rate=0.33, mutation_rate= 0.16, iterations= 50, population_count=6):
         self.mutation_rate = mutation_rate
         self.iterations = iterations
         self.distance_matrix = distance_matrix
@@ -18,7 +18,7 @@ class GeneticAlgorithmTSP:
 
     def _initialize_population(self):
         for i in range(self.population_count):
-            random_population =  np.random.permutation(self.population_size).tolist()
+            random_population = np.random.permutation(self.population_size).tolist()
             self.population.append(random_population)
 
     def _fitness(self, path):
@@ -106,4 +106,5 @@ class GeneticAlgorithmTSP:
             parents = self._parent_selection()
             next_generation = self._generate_next_generation(parents)
             self.population = next_generation
+            print(min(self.fitness_list))
         self._find_best_path()
