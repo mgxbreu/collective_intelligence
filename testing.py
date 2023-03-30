@@ -18,20 +18,20 @@ print(cities.matrix)
 
 class GeneticAlgorithmTSP():
 
-    def __init__(self, selection_rate=0.66, mutation_rate= 0.16, iterations= 4, population_size= 4):
+    def __init__(self, selection_rate=0.66, mutation_rate= 0.16, iterations= 4, population_size= nodes, population_count=10):
         self.mutation_rate = mutation_rate
         self.iterations = iterations
         self.population_size = population_size
-        self.population_length= nodes
-        self.selection_count = math.ceil(selection_rate * self.population_size)
+        self.population_count= population_count
+        self.selection_count = math.ceil(selection_rate * self.population_count)
         self.population = []  
         self.fitness_list = {}  
 
 
     def _initialize_population(self):
         population = []
-        for i in range(self.population_length):
-            random_population =  np.random.permutation(self.population_length).tolist()
+        for i in range(self.population_count):
+            random_population =  np.random.permutation(self.population_size).tolist()
             population.append(random_population)
 
         return population
@@ -106,6 +106,7 @@ class GeneticAlgorithmTSP():
         
     def solve(self):
         self.population = self._initialize_population()
+        print(self.population)
         parents = self._parent_selection()
         print(parents)
         # parent1 = parents[0]
