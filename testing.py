@@ -1,6 +1,7 @@
 from graph import Graph
 import numpy as np
 from constants import MAX_NUMBER
+import math
 
 nodes = 4
 cities = Graph(nodes)
@@ -18,11 +19,11 @@ print(cities.matrix)
 class GeneticAlgorithmTSP():
 
     def __init__(self, selection_rate=0.66, mutation_rate= 0.16, iterations= 4, population_size= 4):
-        self.selection_rate = selection_rate
         self.mutation_rate = mutation_rate
         self.iterations = iterations
         self.population_size = population_size
         self.population_length= nodes
+        self.selection_count = math.ceil(selection_rate * self.population_size)
         self.population = []  
         self.fitness_dict = {}  
 
@@ -111,17 +112,17 @@ class GeneticAlgorithmTSP():
     def solve(self):
         self.population = self._initialize_population()
         parents = self._parent_selection()
-
-        parent1 = parents[0]
-        parent2 = parents[1]
-        children = self._crossover(parent1, parent2)
-        print(children)
-        for child in children:
-            if child in parents:
-                children.remove(child)
-        print(self.fitness_dict)
-        self._generate_fitness_dict()
-        self._find_best_path()
+        print(parents)
+        # parent1 = parents[0]
+        # parent2 = parents[1]
+        # children = self._crossover(parent1, parent2)
+        # print(children)
+        # for child in children:
+        #     if child in parents:
+        #         children.remove(child)
+        # print(self.fitness_list)
+        # self._generate_fitness_list()
+        # self._find_best_path()
         
         
 TSP = GeneticAlgorithmTSP()
