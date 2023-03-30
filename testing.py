@@ -18,7 +18,8 @@ print(cities.matrix)
 
 class GeneticAlgorithmTSP():
 
-    def __init__(self, selection_rate=0.66, mutation_rate= 0.16, iterations= 4, population_size= nodes, population_count=10):
+    def __init__(self, selection_rate=0.66, mutation_rate= 0.16, iterations= 4,
+     population_size= nodes, population_count=6):
         self.mutation_rate = mutation_rate
         self.iterations = iterations
         self.population_size = population_size
@@ -29,12 +30,9 @@ class GeneticAlgorithmTSP():
 
 
     def _initialize_population(self):
-        population = []
         for i in range(self.population_count):
             random_population =  np.random.permutation(self.population_size).tolist()
-            population.append(random_population)
-
-        return population
+            self.population.append(random_population)
 
     def _fitness(self, path):
         total_distance = 0
@@ -105,7 +103,7 @@ class GeneticAlgorithmTSP():
         print(f"Best path found: {best_path}, with a length of {best_path_length}") 
         
     def solve(self):
-        self.population = self._initialize_population()
+        self._initialize_population()
         print(self.population)
         parents = self._parent_selection()
         print(parents)
