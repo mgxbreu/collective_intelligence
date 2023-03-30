@@ -25,7 +25,7 @@ class GeneticAlgorithmTSP():
         self.population_length= nodes
         self.selection_count = math.ceil(selection_rate * self.population_size)
         self.population = []  
-        self.fitness_dict = {}  
+        self.fitness_list = {}  
 
 
     def _initialize_population(self):
@@ -47,9 +47,9 @@ class GeneticAlgorithmTSP():
         # total_distance += distance[path[-1], path[0]]
         return total_distance
 
-    def _generate_fitness_dict(self):
-        self.fitness_dict = {idx: self._fitness(parent) for idx, parent in enumerate(self.population)}
-        # print(self.fitness_dict)
+    def _generate_fitness_list(self):
+        self.fitness_list = [self._fitness(chromosomes) for chromosomes in self.population]
+
     #error on key
     def _parent_selection(self):
         self._generate_fitness_list()
@@ -57,7 +57,7 @@ class GeneticAlgorithmTSP():
         # check why
         parents_selected = [self.population[i] for i in indices[:self.selection_count]]
         return parents_selected
-
+#
     
     def _crossover(self, parent1, parent2):
         half_parent_genes = int(len(parent1) / 2)
@@ -97,8 +97,8 @@ class GeneticAlgorithmTSP():
         return [child_to_be_born1, child_to_be_born2]
 
     def _find_best_path(self):
-        best_path_index =  min(self.fitness_dict, key=self.fitness_dict.get)
-        best_path_length = self.fitness_dict[best_path_index]
+        best_path_index =  min(self.fitness_list, key=self.fitness_list.get)
+        best_path_length = self.fitness_list[best_path_index]
         best_path = self.population[best_path_index]
 
         print("best path")
