@@ -63,7 +63,7 @@ class ACO:
 
     def get_best_route(self):
         self.best_route = list(self.pheromones.argmax(axis=1))
-        # best_route_path = list(zip([node for node in range(self.distance.shape[0])], best_route))
+        print(f"Best solution found: {self.best_route}")
 
     def walk_path(self):
         for iteration in range(self.max_iterations):
@@ -91,10 +91,8 @@ class ACO:
                     f"Ant {ant} path: {path}. Total distance: {total_distance}. Total pheromones: {total_pheromones}")
 
         self.update_pheromones_matrix()
-        # self.get_best_route()
-        # print(self.best_route)
         return self.pheromones
 
-    def start(self):
+    def solve(self):
         self.walk_path()
-        return
+        self.get_best_route()

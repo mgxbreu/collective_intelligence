@@ -1,6 +1,5 @@
 from algorithms.ACO import ACO
 from classes.graph import Graph
-import numpy as np
 
 nodes = 6
 cities = Graph(nodes)
@@ -22,8 +21,4 @@ cities.add_edge(4, 5, 17)
 
 graph = cities
 ants_algorithm = ACO(graph)
-xd = ants_algorithm.walk_path()
-
-
-best_route = list(xd.argmax(axis=1))
-print(best_route)
+ants_algorithm.solve()
