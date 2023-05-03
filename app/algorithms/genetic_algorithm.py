@@ -1,24 +1,26 @@
 import math
 import numpy as np
-from constants import MAX_NUMBER
+from app.constants import MAX_NUMBER
 import random
+
 
 class GeneticAlgorithmTSP:
 
-    def __init__(self, population_size, distance_matrix, selection_rate=0.33, mutation_rate= 0.16, iterations= 50, population_count=6):
+    def __init__(self, population_size, distance_matrix, selection_rate=0.33, mutation_rate=0.16, iterations=50, population_count=6):
         self.mutation_rate = mutation_rate
         self.iterations = iterations
         self.distance_matrix = distance_matrix
         self.population_size = population_size
-        self.population_count= population_count
-        self.selection_count = math.ceil(selection_rate * self.population_count)
-        self.population = []  
-        self.fitness_list = {}  
-
+        self.population_count = population_count
+        self.selection_count = math.ceil(
+            selection_rate * self.population_count)
+        self.population = []
+        self.fitness_list = {}
 
     def _initialize_population(self):
         for i in range(self.population_count):
-            random_population = np.random.permutation(self.population_size).tolist()
+            random_population = np.random.permutation(
+                self.population_size).tolist()
             self.population.append(random_population)
 
     def _fitness(self, path):
@@ -31,14 +33,16 @@ class GeneticAlgorithmTSP:
         return total_distance
 
     def _generate_fitness_list(self):
-        self.fitness_list = [self._fitness(chromosomes) for chromosomes in self.population]
+        self.fitness_list = [self._fitness(
+            chromosomes) for chromosomes in self.population]
 
     def _parent_selection(self):
         self._generate_fitness_list()
         indices = np.argsort(self.fitness_list)
-        parents_selected = [self.population[i] for i in indices[:self.selection_count]]
+        parents_selected = [self.population[i]
+                            for i in indices[:self.selection_count]]
         return parents_selected
-    
+
     def _crossover(self, parent1, parent2):
         half_parent_genes = int(len(parent1) / 2)
         child1 = parent1[:half_parent_genes] + parent2[half_parent_genes:]
@@ -50,8 +54,10 @@ class GeneticAlgorithmTSP:
         mapped_genes1 = dict(zip(section1, section2))
         mapped_genes2 = dict(zip(section2, section1))
 
-        child_to_be_born1 = section1 + [gene if gene not in section1 else 'X' for gene in child1[half_parent_genes:]]
-        child_to_be_born2 = section2 + [gene if gene not in section2 else 'X' for gene in child2[half_parent_genes:]]
+        child_to_be_born1 = section1 + \
+            [gene if gene not in section1 else 'X' for gene in child1[half_parent_genes:]]
+        child_to_be_born2 = section2 + \
+            [gene if gene not in section2 else 'X' for gene in child2[half_parent_genes:]]
 
         for idx, gene in enumerate(child_to_be_born1):
             if gene == 'X':
@@ -84,12 +90,13 @@ class GeneticAlgorithmTSP:
         return chromosome
 
     def _find_best_path(self):
-        best_path =  min(self.population, key=self._fitness)
+        best_path = min(self.population, key=self._fitness)
         best_path_distance = self._fitness(best_path)
 
         print(f"Current population: {self.population}")
-        print(f"Best path found: {best_path}, with a length of {best_path_distance}") 
-        
+        print(
+            f"Best path found: {best_path}, with a length of {best_path_distance}")
+
     def _generate_next_generation(self, parents):
         next_generation = parents[:]
         while len(next_generation) < self.population_count:

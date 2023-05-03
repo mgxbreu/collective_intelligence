@@ -1,9 +1,9 @@
-from classes.graph import Graph
+from app.classes.graph import Graph
 import numpy as np
-from constants import MAX_NUMBER
+from app.constants import MAX_NUMBER
 import math
 import random
-from algorithms.genetic_algorithm import GeneticAlgorithmTSP
+from app.algorithms.genetic_algorithm import GeneticAlgorithmTSP
 
 nodes = 6
 cities = Graph(nodes)
