@@ -9,8 +9,3 @@
 ```
 
 2. Run tests, which you can also change to play with the algorithms 💁🏽‍♀️
-
-## TODO
-
-- [] make tests with a python testing library
-- [] move tests to separate folder
