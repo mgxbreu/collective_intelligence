@@ -1,5 +1,5 @@
-from algorithms.ACO import ACO
-from classes.graph import Graph
+from app.algorithms.ACO import ACO
+from app.classes.graph import Graph
 
 nodes = 6
 cities = Graph(nodes)
