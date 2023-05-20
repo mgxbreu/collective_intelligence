@@ -1,8 +1,4 @@
 from app.classes.graph import Graph
-import numpy as np
-from app.constants import MAX_NUMBER
-import math
-import random
 from app.algorithms.genetic_algorithm import GeneticAlgorithmTSP
 
 nodes = 6
