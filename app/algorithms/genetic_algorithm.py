@@ -18,7 +18,7 @@ class GeneticAlgorithmTSP:
         self.fitness_list = {}
 
     def _initialize_population(self):
-        for i in range(self.population_count):
+        for _ in range(self.population_count):
             random_population = np.random.permutation(
                 self.population_size).tolist()
             self.population.append(random_population)
@@ -109,7 +109,7 @@ class GeneticAlgorithmTSP:
 
     def solve(self):
         self._initialize_population()
-        for iteration in range(self.iterations):
+        for _ in range(self.iterations):
             parents = self._parent_selection()
             next_generation = self._generate_next_generation(parents)
             self.population = next_generation

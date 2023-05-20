@@ -1,6 +1,5 @@
 
 import numpy as np
-import networkx as nx
 
 initial_state = 0
 
@@ -66,7 +65,7 @@ class ACO:
         print(f"Best solution found: {self.best_route}")
 
     def walk_path(self):
-        for iteration in range(self.max_iterations):
+        for _ in range(self.max_iterations):
             for ant in range(self.ants):
                 path = []
                 unvisited = [node for node in range(self.distance.shape[0])]
